@@ -61,7 +61,7 @@ apt-get upgrade > /dev/null
 # Install UFW (firewall)
 echo "----- Installing UFW -----"
 apt-get install ufw -y > /dev/null
-# Install certbot, involved configuration
+# Install certbot
 echo "----- Installing certbot -----"
 apt-get install snapd -y > /dev/null
 snap install core > /dev/null

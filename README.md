@@ -35,13 +35,11 @@ The installation script will ask for some values:
 Your new mailserver is most useful when paired with a email client supporting SMTPS and POP3. Gmail has been tested to work but other clients likely work
 1. Open `See all settings` on Gmail and navigate to `Accounts and import`
 ![Gmail account settings](images/settings.png)
-2. Click `Add another email address` and fill out the forms.
-Uncheck `Treat as an alias`
+2. Click `Add another email address` and fill out the form. Uncheck `Treat as an alias`
 ![Add email settings](images/add_email.png)
 3. Configure using the desired user on the mailserver, like the admin user you entered earlier
 ![Enter mailserver](images/send_mail.png)
-4. SSH into your mailserver
-Check the mail using `runuser -l user -c 'mail'` with the user you entered. Enter the number of the most recent email from `Gmail Team` and search for `Confirmation code: XXXXXXXXX` in the body of the email. Copy that code and enter it into the dialog on the Gmail client. Exit `mail` by pressing q twice and pressing Enter.
+4. SSH into your mailserver. Check the mail using `runuser -l user -c 'mail'` with the user you entered. Enter the number of the most recent email from `Gmail Team` and search for `Confirmation code: XXXXXXXXX` in the body of the email. Copy that code and enter it into the dialog on the Gmail client. Exit `mail` by pressing q twice and pressing Enter.
 5. Disable `Always reply from default address`
 ![Disable default address](images/default_address.png)
 6. Click `Check mail from other accounts` and enter your custom email
