@@ -39,7 +39,7 @@ apt-get purge dovecot-core dovecot-imapd dovecot-pop3d > /dev/null
 # Revert certain configs, certbot and UFW are common enough that the user
 #     may have had them before running install.sh
 echo "----- Revert certbot/UFW config -----"
-sudo certbot delete --cert-name $MAIL_SUBDOMAIN > /dev/null
+yes | certbot delete --non-interactive --cert-name $MAIL_SUBDOMAIN > /dev/null
 ufw deny Postfix > /dev/null
 ufw deny "Postfix SMTPS" > /dev/null
 ufw deny "Postfix Submission" > /dev/null

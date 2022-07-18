@@ -21,7 +21,7 @@ A script to facilitate easy installation of a Postfix + Gmail relay for custom e
 # Installing
 Run the following command to install
 ```shell
-curl -fsSL https://raw.githubusercontent.com/TheGreatRambler/SimpleMailserver/main/install.sh | sudo -E bash -
+su - -c "bash <(curl -fsSL https://raw.githubusercontent.com/TheGreatRambler/SimpleMailserver/main/install.sh)"
 ```
 The installation script will ask for some values:
 * Domain name: Domain name used in the email, also required to configure SSL
@@ -55,5 +55,5 @@ Check the mail using `runuser -l user -c 'mail'` with the user you entered. Ente
 # Uninstalling
 Run the following command to uninstall
 ```shell
-curl -fsSL https://raw.githubusercontent.com/TheGreatRambler/SimpleMailserver/main/uninstall.sh | sudo -E bash -
+su - -c "bash <(curl -fsSL https://raw.githubusercontent.com/TheGreatRambler/SimpleMailserver/main/uninstall.sh)"
 ```

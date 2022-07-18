@@ -70,10 +70,10 @@ ln -s /snap/bin/certbot /usr/bin/certbot > /dev/null
 
 # Create certificate
 echo "----- Creating SSL certificate -----"
-sudo certbot certonly --standalone --non-interactive \
+certbot certonly --standalone --non-interactive \
 	--domains $MAIL_SUBDOMAIN --agree-tos -m $CERTBOT_EMAIL > /dev/null
 if [[ $? -ne 0 ]]; then
-	echo "Certbot failed, check that you have AAAA records for ${MAIL_SUBDOMAIN}"
+	echo "Certbot failed, check that you have AAAA records for ${MAIL_SUBDOMAIN} and that port 80 is currently unused"
 	exit 1
 fi
 
