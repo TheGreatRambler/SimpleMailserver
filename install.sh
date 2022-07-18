@@ -70,11 +70,12 @@ ln -s /snap/bin/certbot /usr/bin/certbot > /dev/null
 
 # Create certificate
 echo "----- Creating SSL certificate -----"
-#sudo certbot certonly --standalone --non-interactive --domains $MAIL_SUBDOMAIN --agree-tos -m $CERTBOT_EMAIL > /dev/null
-#if [[ $? -ne 0 ]]; then
-#	echo "Certbot failed, check that you have AAAA records for ${MAIL_SUBDOMAIN}"
-#	exit 1
-#fi
+sudo certbot certonly --standalone --non-interactive \
+	--domains $MAIL_SUBDOMAIN --agree-tos -m $CERTBOT_EMAIL > /dev/null
+if [[ $? -ne 0 ]]; then
+	echo "Certbot failed, check that you have AAAA records for ${MAIL_SUBDOMAIN}"
+	exit 1
+fi
 
 # Install postfix
 echo "----- Installing postfix -----"
@@ -337,16 +338,16 @@ ssl_key = </etc/letsencrypt/live/$MAIL_SUBDOMAIN/privkey.pem
 "
 echo "$DOVECOT_CONF_CONTENTS" > /etc/dovecot/dovecot.conf
 
-# Verify hostname is set correctly, can conflict with mail
+# Verify hostname is set correctly, can default to localhost otherwise, breaking mail
 hostnamectl set-hostname $DOMAIN_NAME
 
 # Open firewall
 echo "----- Opening firewall -----"
 ufw allow Postfix > /dev/null
+ufw allow "Postfix SMTPS" > /dev/null
+ufw allow "Postfix Submission" > /dev/null
 ufw allow "Dovecot IMAP" > /dev/null
 ufw allow "Dovecot Secure IMAP" > /dev/null
-ufw allow 465/tcp > /dev/null # SMTPS
-ufw allow 995/tcp > /dev/null # POP3
 
 # Start services
 echo "----- Starting services -----"
