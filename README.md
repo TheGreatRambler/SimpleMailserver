@@ -16,6 +16,7 @@ A script to facilitate easy installation of a Postfix + Gmail relay for custom e
 3. Select `Other (Custom name)` and enter a distinctive identifier, like `Mailserver mail.domain.com`
 ![Select app](images/select_app.png)
 4. Select generate and keep this app password for installation. You will not be able to see it again so make sure to record it somewhere
+
 ![Generate app password](images/app_password.png)
 
 # Installing
