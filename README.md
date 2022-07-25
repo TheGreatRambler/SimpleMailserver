@@ -47,8 +47,10 @@ Your new mailserver is most useful when paired with a email client supporting SM
 ![Enter email for check mail](images/check_mail.png)
 7. Enable `Import emails from my other account (POP3)`
 8. Fill out the form, making special care to use port 995
+
 ![Import email for check mail](images/import_email.png)
 9. You can now send email under your custom email
+
 ![Send mail under custom email](images/send_message.png)
 
 # Uninstalling
