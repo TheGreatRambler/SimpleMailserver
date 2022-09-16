@@ -1,5 +1,5 @@
 # SimpleMailserver
-A script to facilitate easy installation of a Postfix + Gmail relay for custom emails you can easily access from the gmail client or other clients supporting SMTPS and POP3
+A script to facilitate easy installation of a Postfix mail server + Gmail relay for custom emails you can easily access from the Gmail client or other clients supporting SMTPS and POP3
 
 # Before installing
 1. Some ports must be exposed to be able to host a mailserver, and to prevent abuse most registrars disable these ports by default. Contact support to have them opened:
@@ -53,6 +53,36 @@ Your new mailserver is most useful when paired with a email client supporting SM
 9. You can now send email under your custom email
 
 ![Send mail under custom email](images/send_message.png)
+
+# Creating a profile picture
+1. Create SPF record as a TXT record, replacing the IP with your own
+```
+Value: v=spf1 ip4:127.0.0.1 ~all 
+```
+2. Create DMARC record as a TXT record, replacing the email with the email you want to recieve periodic DMARC reports
+```
+Hostname: _dmarc
+Value: v=DMARC1; p=reject; rua=mailto:example@example.com; adkim=s; aspf=s; sp=reject
+```
+3. Create default BIMI record, replacing the URL to an image to your desired profile picture
+```
+Hostname: default._bimi
+Value: v=BIMI1; l=https://example.com/bimi/logo.svg;a=self;
+```
+The profile picture must be SVG Tiny 1.2, which is a slightly different version of SVG. When you generate your SVG ensure the following attributes are set:
+```xml
+<svg
+   version="1.2"
+   baseProfile="tiny-ps"
+   ...
+   xmlns="http://www.w3.org/2000/svg">
+```
+Line endings must also be LF only (Windows uses CR LF by default)
+4. Support for Gmail and Outlook require a VMC. Because it is 1500$ a year I can't provide a guide on it
+
+# Gmail method for profile picture
+1. Navigate to `Google Account -> Personal info -> Contact Info -> Alternate emails` and add your custom email there
+2. Set the profile picture of that Google account to the desired picture
 
 # Uninstalling
 Run the following command to uninstall
