@@ -56,22 +56,22 @@ done
 
 # Update package repositories
 echo "----- Updating package repositories -----"
-apt-get update > /dev/null
-apt-get upgrade > /dev/null
+apt-get update
+apt-get upgrade
 # Install UFW (firewall)
 echo "----- Installing UFW -----"
-apt-get install ufw -y > /dev/null
+apt-get install ufw
 # Install certbot
 echo "----- Installing certbot -----"
-apt-get install snapd -y > /dev/null
-snap install core > /dev/null
-snap install --classic certbot > /dev/null
-ln -s /snap/bin/certbot /usr/bin/certbot > /dev/null
+apt-get install snapd
+snap install core
+snap install --classic certbot
+ln -s /snap/bin/certbot /usr/bin/certbot
 
 # Create certificate
 echo "----- Creating SSL certificate -----"
 certbot certonly --standalone --non-interactive \
-	--domains $MAIL_SUBDOMAIN --agree-tos -m $CERTBOT_EMAIL > /dev/null
+	--domains $MAIL_SUBDOMAIN --agree-tos -m $CERTBOT_EMAIL
 if [[ $? -ne 0 ]]; then
 	echo "Certbot failed, check that you have AAAA records for ${MAIL_SUBDOMAIN} and that port 80 is currently unused"
 	exit 1
@@ -79,11 +79,11 @@ fi
 
 # Install postfix
 echo "----- Installing postfix -----"
-apt-get remove exim4 > /dev/null
+apt-get remove exim4
 debconf-set-selections <<< "postfix postfix/mailname string ${DOMAIN_NAME}"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
-apt-get install postfix libsasl2-modules -y > /dev/null
-systemctl stop postfix > /dev/null
+apt-get install postfix libsasl2-modules -y
+systemctl stop postfix
 
 # Change postfix master.cf and main.cf configurations
 echo "----- Creating configuration files -----"
@@ -310,7 +310,7 @@ rm /etc/postfix/sasl/sasl_passwd
 
 # Install dovecot
 echo "----- Installing dovecot -----"
-apt-get install dovecot-core dovecot-imapd dovecot-pop3d > /dev/null
+apt-get install dovecot-core dovecot-imapd dovecot-pop3d
 DOVECOT_CONF_CONTENTS="
 disable_plaintext_auth = no
 mail_privileged_group = mail
@@ -343,13 +343,13 @@ hostnamectl set-hostname $DOMAIN_NAME
 
 # Open firewall
 echo "----- Opening firewall -----"
-ufw allow Postfix > /dev/null
-ufw allow "Postfix SMTPS" > /dev/null
-ufw allow "Postfix Submission" > /dev/null
-ufw allow "Dovecot IMAP" > /dev/null
-ufw allow "Dovecot Secure IMAP" > /dev/null
+ufw allow Postfix
+ufw allow "Postfix SMTPS"
+ufw allow "Postfix Submission"
+ufw allow "Dovecot IMAP"
+ufw allow "Dovecot Secure IMAP"
 
 # Start services
 echo "----- Starting services -----"
-postfix start > /dev/null
-service dovecot restart > /dev/null
+postfix start
+service dovecot restart

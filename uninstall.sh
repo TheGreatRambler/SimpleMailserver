@@ -31,17 +31,17 @@ done
 
 # Uninstall key packages
 echo "----- Uninstalling packages -----"
-systemctl stop postfix > /dev/null
-systemctl stop dovecot > /dev/null
-apt-get purge postfix libsasl2-modules -y > /dev/null
-apt-get purge dovecot-core dovecot-imapd dovecot-pop3d > /dev/null
+systemctl stop postfix
+systemctl stop dovecot
+apt-get purge postfix libsasl2-modules -y
+apt-get purge dovecot-core dovecot-imapd dovecot-pop3d
 
 # Revert certain configs, certbot and UFW are common enough that the user
 #     may have had them before running install.sh
 echo "----- Revert certbot/UFW config -----"
-yes | certbot delete --non-interactive --cert-name $MAIL_SUBDOMAIN > /dev/null
-ufw deny Postfix > /dev/null
-ufw deny "Postfix SMTPS" > /dev/null
-ufw deny "Postfix Submission" > /dev/null
-ufw deny "Dovecot IMAP" > /dev/null
-ufw deny "Dovecot Secure IMAP" > /dev/null
+yes | certbot delete --non-interactive --cert-name $MAIL_SUBDOMAIN
+ufw deny Postfix
+ufw deny "Postfix SMTPS"
+ufw deny "Postfix Submission"
+ufw deny "Dovecot IMAP"
+ufw deny "Dovecot Secure IMAP"
