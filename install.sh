@@ -56,8 +56,8 @@ done
 
 # Update package repositories
 echo "----- Updating package repositories -----"
-apt-get update
-apt-get upgrade
+apt-get update -y
+apt-get upgrade -y
 # Install UFW (firewall)
 echo "----- Installing UFW -----"
 apt-get install ufw
