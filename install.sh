@@ -310,7 +310,7 @@ rm /etc/postfix/sasl/sasl_passwd
 
 # Install dovecot
 echo "----- Installing dovecot -----"
-apt-get install dovecot-core dovecot-imapd dovecot-pop3d
+apt-get install dovecot-core dovecot-imapd dovecot-pop3d -y
 DOVECOT_CONF_CONTENTS="
 disable_plaintext_auth = no
 mail_privileged_group = mail
